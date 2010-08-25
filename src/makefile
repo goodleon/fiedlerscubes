@@ -5,13 +5,13 @@
 
 #CFLAGS="-Wall -DDEBUG" CXXFLAGS="-Wall -DDEBUG" ./configure --with-trimesh=none --with-drawstuff=none --enable-malloc
 
-flags = -march=core2 -mfpmath=sse -sse3 -O3 -Iode -ffast-math -fno-exceptions -finline-functions -fomit-frame-pointer -fstrict-aliasing -Wstrict-aliasing=2 -Wall -DNDEBUG -lm
+flags = -march=core2 -mfpmath=sse -sse3 -O3 -I../ode/include -ffast-math -fno-exceptions -finline-functions -fomit-frame-pointer -fstrict-aliasing -Wstrict-aliasing=2 -Wall -DNDEBUG -lm
 
 #flags = -Wall -DDEBUG -lm
 
 headers := $(wildcard *.h)
 
-libs := -lode
+libs := -lode -L../ode/lib
 frameworks := -framework Carbon -framework OpenGL -framework AGL
 
 all : Demo.app test
