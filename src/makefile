@@ -5,22 +5,22 @@
 
 #CFLAGS="-Wall -DDEBUG" CXXFLAGS="-Wall -DDEBUG" ./configure --with-trimesh=none --with-drawstuff=none --enable-malloc
 
-flags = -march=core2 -mfpmath=sse -sse3 -O3 -I../ode/include -ffast-math -fno-exceptions -finline-functions -fomit-frame-pointer -fstrict-aliasing -Wstrict-aliasing=2 -Wall -DNDEBUG -lm
+flags = -march=core2 -mfpmath=sse -sse3 -O3 -ffast-math -fno-exceptions -finline-functions -fomit-frame-pointer -fstrict-aliasing -Wstrict-aliasing=2 -Wall -DNDEBUG -lm
 
 #flags = -Wall -DDEBUG -lm
 
 headers := $(wildcard *.h)
 
-libs := -lode -L../ode/lib
+ode := -lode -L../ode/lib -I../ode/include
 frameworks := -framework Carbon -framework OpenGL -framework AGL
 
 all : Demo.app test
 
 % : %.cpp makefile ${headers}
-	g++ $< -o $@ ${flags} ${libs} ${frameworks}
+	g++ $< -o $@ ${flags} ${ode} ${frameworks}
 
 UnitTest : UnitTest.cpp makefile ${headers}
-	g++ UnitTest.cpp -o UnitTest -Wall -DDEBUG -lm -lUnitTest++ ${libs}
+	g++ UnitTest.cpp -o UnitTest -Wall -DDEBUG -lm -lUnitTest++ ${ode}
 
 test : UnitTest
 	./UnitTest
