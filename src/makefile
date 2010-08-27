@@ -12,6 +12,7 @@ flags = -march=core2 -mfpmath=sse -sse3 -O3 -ffast-math -fno-exceptions -finline
 headers := $(wildcard *.h)
 
 ode := -lode -L../ode/lib -I../ode/include
+unittest := -lUnitTest++ -L../UnitTest++ -I../UnitTest++/src
 frameworks := -framework Carbon -framework OpenGL -framework AGL
 
 all : Demo.app test
@@ -20,7 +21,7 @@ all : Demo.app test
 	g++ $< -o $@ ${flags} ${ode} ${frameworks}
 
 UnitTest : UnitTest.cpp makefile ${headers}
-	g++ UnitTest.cpp -o UnitTest -Wall -DDEBUG -lm -lUnitTest++ ${ode}
+	g++ UnitTest.cpp -o UnitTest -Wall -DDEBUG -lm ${unittest} ${ode}
 
 test : UnitTest
 	./UnitTest
